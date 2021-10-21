@@ -32,7 +32,7 @@ def download_one_file(prefix_path, file, path, count, len_video):
 
 
 def ts_download(prefix_path, video_list, total_name, save_path, n_job):
-    print("{} is downloading...".format(total_name).center(60, "-"))
+    print("{}.mp4 is downloading...".format(total_name).center(60, "-"))
     count = 1
     path = save_path + "/" + total_name
     if not os.path.exists(path):
@@ -53,8 +53,7 @@ def ts_download(prefix_path, video_list, total_name, save_path, n_job):
     pool.join()
 
     print()
-    print("{} is merging...".format(total_name).center(60, "-"))
-    print(len(video_list))
+    print("{}.mp4 is merging...".format(total_name).center(60, "-"))
     name = merge(video_list, path)
     os.chdir(path)
     os.system("rename " + name[0] + " " + total_name + ".mp4 ")

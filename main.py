@@ -14,12 +14,11 @@ def youtube_downloader(url, download_location = 'downloads/youtube'):
     .download(download_location)
 
 
-def m3u8_downloader(m3u8_url, file_name = None, download_location = 'downloads/m3u8', n_job = 100):
+def m3u8_downloader(m3u8_url, file_name = None, download_location = 'downloads/m3u8', n_job = 20):
     os.makedirs(download_location, exist_ok = True)
     download_location = os.path.join(os.getcwd(), download_location)
     if file_name is None:
         file_name = "video"
-    ext = ".mp4"
 
     k = 0
     file_name_temp = file_name
@@ -33,5 +32,4 @@ def m3u8_downloader(m3u8_url, file_name = None, download_location = 'downloads/m
 
 if __name__ == "__main__":
     # youtube_downloader("https://www.youtube.com/watch?v=4TOEkx2Z1rI")
-    m3u8_downloader("https://vnw-vod-cdn.popsww.com/hn-eNRW7KeIO82M-LRK04anLJKPAvw/videos/transcoded/s19_onepiece_800_app-popsapp/index-f3-v1-a1.m3u8"
-                , "test")
+    m3u8_downloader("https://vnw-vod-cdn.popsww.com/hn-eNRW7KeIO82M-LRK04anLJKPAvw/videos/transcoded/s19_onepiece_800_app-popsapp/index-f3-v1-a1.m3u8")
