@@ -1,7 +1,6 @@
 from pytube import YouTube
 import requests
-from parse_m3u8 import parse_m3u8_file
-from file_downloader import ts_download
+from utils import parse_m3u8_file, ts_download
 import os
 
 
@@ -15,17 +14,8 @@ def youtube_downloader(url, download_location = 'downloads/youtube'):
 
 
 def m3u8_downloader(m3u8_url, file_name = None, download_location = 'downloads/m3u8', n_job = 20):
-    os.makedirs(download_location, exist_ok = True)
     download_location = os.path.join(os.getcwd(), download_location)
-    if file_name is None:
-        file_name = "video"
-
-    k = 0
-    file_name_temp = file_name
-    while os.path.isfile(os.path.join(download_location, file_name + ".mp4")):
-        k+=1
-        file_name = file_name_temp + str(k)
-
+    
     prefix_path, url = parse_m3u8_file(m3u8_url)
     ts_download(prefix_path, url, file_name, download_location, n_job)
 

@@ -32,11 +32,19 @@ def download_one_file(prefix_path, file, path, count, len_video):
 
 
 def ts_download(prefix_path, video_list, total_name, save_path, n_job):
+    if total_name is None:
+        total_name = "video"
+
+    k = 0
+    total_name_temp = total_name
+    while os.path.isfile(os.path.join(save_path, total_name + ".mp4")):
+        k+=1
+        total_name = total_name_temp + str(k)
+
     print("{}.mp4 is downloading...".format(total_name).center(60, "-"))
     count = 1
-    path = save_path + "/" + total_name
-    if not os.path.exists(path):
-        os.mkdir(path)
+    path = os.path.join(save_path, total_name)
+    os.makedirs(path, exist_ok = True)
 
     cpu_number = int(n_job)
     if n_job == -1 or n_job >= cpu_count():
@@ -79,3 +87,29 @@ def merge(file_list, path):
         return [file_list[0]]
     else:
         return file_list
+
+
+def find_prefix_path(m3u8_path):
+    sub_path = m3u8_path.split("/")
+    sub_path.remove(sub_path[-1])
+    return "/".join(sub_path)
+
+
+def parse_m3u8_file(m3u8_path, prefix=True):
+    m3u8_file = file_downloader(m3u8_path)
+    if "#EXTM3U" not in m3u8_file:
+        raise BaseException("It is not a standard m3u8 file.")
+    if prefix:
+        prefix_path = find_prefix_path(m3u8_path)
+    else:
+        prefix_path = None
+    video_list = []
+    lines = m3u8_file.split()
+    for line in lines:
+        if line.endswith("m3u8"):
+            _, sub_list = parse_m3u8_file("/".join([prefix_path, line]), False)
+            for path in sub_list:
+                video_list.append(path)
+        elif line.endswith("ts"):
+            video_list.append(line)
+    return prefix_path, video_list
