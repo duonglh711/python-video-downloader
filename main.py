@@ -21,5 +21,5 @@ def m3u8_downloader(m3u8_url, file_name = None, download_location = 'downloads/m
 
 
 if __name__ == "__main__":
-    # youtube_downloader("https://www.youtube.com/watch?v=4TOEkx2Z1rI")
-    m3u8_downloader("https://vnw-vod-cdn.popsww.com/hn-eNRW7KeIO82M-LRK04anLJKPAvw/videos/transcoded/s19_onepiece_800_app-popsapp/index-f3-v1-a1.m3u8")
+    youtube_downloader("https://www.youtube.com/watch?v=M0yhHKWUa0g")
+    # m3u8_downloader("https://vnw-vod-cdn.popsww.com/hn-eNRW7KeIO82M-LRK04anLJKPAvw/videos/transcoded/s19_onepiece_800_app-popsapp/index-f3-v1-a1.m3u8")
